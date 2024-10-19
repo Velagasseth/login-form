@@ -9,7 +9,7 @@ class Emp:
         allowance=2000
         overtime=(self.rate_per_day*self.no_of_hours)
         grossC=(basic_salary+allowance+overtime)
-        print('$ {:.2f}'.format(grossC))
+        return grossC
 
 
 
