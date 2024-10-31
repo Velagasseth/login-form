@@ -25,8 +25,8 @@ global name1, surname1
 def put(conn):
     global name1, surname1
     try:
-        surname = entry.get()
-        name = entry1.get()
+        surname = entry.get().lower()
+        name = entry1.get().lower()
         test_password = entry2.get()
         if name[0].islower() or surname[0].islower():
             name1 = name.capitalize()
@@ -42,7 +42,7 @@ def put(conn):
                 entry3.configure(placeholder_text="*incorrect match!", placeholder_text_color="red", border_color="red")
             else:
                 ID = entry4.get()
-                if 8 < len(ID) > 8:
+                if len(ID) > 8 or len(ID) < 8:
                     entry4.configure(placeholder_text="*invalid format", placeholder_text_color="red",
                                      border_color="red")
                 else:
@@ -59,40 +59,6 @@ def put(conn):
                         cursor.execute(query3, data)
                         cursor.commit()
                         full.pack()
-
-        else:
-            password1 = entry3.get()
-            # putting restrictions
-            cursor = conn.cursor()
-            query = "SELECT * FROM Student_1"
-            cursor.execute(query)
-            cursor.commit()
-
-            if password1 != test_password:
-                entry3.configure(placeholder_text="*incorrect match!", placeholder_text_color="red", border_color="red")
-            else:
-                ID = entry4.get()
-                if 8 < len(ID) > 8:
-                    entry4.configure(placeholder_text="*invalid format", placeholder_text_color="red",
-                                     border_color="red")
-                elif 4 < entry2.get() > 4:
-                    entry2.configure(border_color="red",text_color="red")
-                    entry2.insert(0, "*invalid format")
-                else:
-                    cursor = conn.cursor()
-
-                    cursor.execute("SELECT * FROM Student_1 WHERE Surname=?", surname)
-                    rows = cursor.fetchone()
-                    print(rows)
-                    if rows:
-                        messagebox.showerror("fail", 'User already exists!')
-                    else:
-                        query3 = "INSERT INTO Student_1(Surname, Username, Password, ID_No) values(?, ?, ?, ?) "
-                        data = (surname, name, password1, ID)
-                        cursor.execute(query3, data)
-                        cursor.commit()
-                        full.pack()
-
 
 
 

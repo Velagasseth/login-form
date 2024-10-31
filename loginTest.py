@@ -27,7 +27,9 @@ x = int((screen_width / 2) - (WIDTH / 2))
 y = int((screen_height / 2) - (HEIGHT / 2))
 window.geometry(f"{WIDTH}X{HEIGHT}+{x}+{y}")
 window.title("SethVelagas")
-window.resizable(False, False)
+
+
+#window.resizable(False, False)
 
 
 def push():
@@ -93,7 +95,7 @@ global username1, userEntry
 
 def new_ctk(conn):
     global username1, userEntry
-    username = entry1.get()
+    username = entry1.get().lower()
     password = entry2.get()
 
     if username == "" or password == "":
@@ -139,7 +141,6 @@ def new_ctk(conn):
             cursor5.execute("SELECT * FROM Student_1 WHERE Username=?", username1)
             rows = cursor5.fetchone()
             print(rows)
-
 
             if rows is None:
                 messagebox.showerror("Invalid", "Invalid credentials please register ")
